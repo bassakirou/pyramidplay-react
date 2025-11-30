@@ -1,0 +1,359 @@
+[
+  {
+    "id": 1,
+    "title": "Mentalite Africaine",
+    "artist": "Prince Eyango",
+    "image": "thumbnails/eyango.webp",
+    "src": "/music/soa.mp3"
+  },
+  {
+    "id": 2,
+    "title": "Clavie",
+    "artist": "Maahlox Le Vibeur",
+    "image": "thumbnails/magasco.webp",
+    "src": "/music/clavie.mp3"
+  },
+  {
+    "id": 3,
+    "title": "Essuw'am",
+    "artist": "Charlotte Mbango",
+    "image": "thumbnails/mbango.webp",
+    "src": "/music/ndolo.mp3"
+  },
+  {
+    "id": 4,
+    "title": "Sawa",
+    "artist": "Maahlox Le Vibeur",
+    "image": "thumbnails/locko.webp",
+    "src": "/music/sawa.mp3"
+  },
+  {
+    "id": 5,
+    "title": "Ndutu",
+    "artist": "Locko",
+    "image": "thumbnails/locko.webp",
+    "src": "/music/trouverlavie.mp3"
+  },
+  {
+    "id": 6,
+    "title": "Trouver la vie",
+    "artist": "Maahlox Le Vibeur",
+    "image": "thumbnails/salatiel.webp",
+    "src": "music/trouverlavie.mp3"
+  },
+  {
+    "id": 7,
+    "title": "Tourbillon",
+    "artist": "Ben Decca",
+    "image": "thumbnails/bendecca.webp",
+    "src": "music/sawa.mp3"
+  },
+  {
+    "id": 8,
+    "title": "Dube l'am",
+    "artist": "Charlotte Dipanda",
+    "image": "thumbnails/charlotte1.webp",
+    "src": "music/soa.mp3"
+  },
+  {
+    "id": 9,
+    "title": "Massa",
+    "artist": "Charlotte Dipanda",
+    "image": "thumbnails/charlotte2.webp",
+    "src": "music/soa.mp3"
+  },
+  {
+    "id": 10,
+    "title": "Patrimoine",
+    "artist": "Lady Ponce",
+    "image": "thumbnails/ladyponce.webp",
+    "src": "music/clavie.mp3"
+  },
+  {
+    "id": 11,
+    "title": "Bombe A",
+    "artist": "Lady Ponce",
+    "image": "thumbnails/ladyponce2.webp",
+    "src": "music/sawa.mp3"
+  },
+  {
+    "id": 12,
+    "title": "Chacun sa chance",
+    "artist": "Krys M",
+    "image": "thumbnails/krysm.webp",
+    "src": "music/ndolo.mp3"
+  },
+  {
+    "id": 13,
+    "title": "Golden Boy",
+    "artist": "Magasco",
+    "image": "thumbnails/magasco.webp",
+    "src": "music/trouverlavie.mp3"
+  },
+  {
+    "id": 14,
+    "title": "Mine",
+    "artist": "Blanche Bailly",
+    "image": "thumbnails/bailly.webp",
+    "src": "/music/kalabancoro.mp3"
+  },
+  {
+    "id": 15,
+    "title": "Trouver la vie",
+    "artist": "Petit Pays",
+    "image": "thumbnails/petitpays.webp",
+    "src": "music/trouverlavie.mp3"
+  },
+  {
+    "id": 16,
+    "title": "Frotambo",
+    "artist": "Petit Pays",
+    "image": "thumbnails/petitpays2.webp",
+    "src": "music/clavie.mp3"
+  },
+  {
+    "id": 17,
+    "title": "African Typic Collection",
+    "artist": "Sam Fan Thomas",
+    "image": "thumbnails/sam.webp",
+    "src": "music/sawa.mp3"
+  },
+  {
+    "id": 18,
+    "title": "God Don Kam",
+    "artist": "Jovi",
+    "image": "thumbnails/jovi.webp",
+    "src": "music/ndolo.mp3"
+  },
+  {
+    "id": 19,
+    "title": "Mboko God",
+    "artist": "Jovi",
+    "image": "thumbnails/jovi2.webp",
+    "src": "music/trouverlavie.mp3"
+  },
+  {
+    "id": 20,
+    "title": "Faya",
+    "artist": "Mimie",
+    "image": "thumbnails/mimie.webp",
+    "src": "music/kalabancoro.mp3"
+  },
+  {
+    "id": 21,
+    "title": "Soundsation",
+    "artist": "Mimie",
+    "image": "thumbnails/mimie2.webp",
+    "src": "music/soa.mp3"
+  },
+  {
+    "id": 22,
+    "title": "Dreamy Eyes",
+    "artist": "Rinyu",
+    "image": "thumbnails/rinyu.webp",
+    "src": "music/sawa.mp3"
+  },
+  {
+    "id": 23,
+    "title": "Deux oeufs spaghetti",
+    "artist": "Ko-c",
+    "image": "thumbnails/kocee.webp",
+    "src": "music/ndolo.mp3"
+  },
+  {
+    "id": 24,
+    "title": "Tendon",
+    "artist": "RENISS",
+    "image": "thumbnails/reniss.webp",
+    "src": "music/clavie.mp3"
+  },
+  {
+    "id": 25,
+    "title": "Wa",
+    "artist": "Henri Dikongué",
+    "image": "thumbnails/henridikonge.webp",
+    "src": "music/kalabancoro.mp3"
+  },
+  {
+    "id": 26,
+    "title": "Cloud Nine",
+    "artist": "Locko",
+    "image": "thumbnails/locko2.webp",
+    "src": null
+  },
+  {
+    "id": 27,
+    "title": "Anita",
+    "artist": "Salatiel",
+    "image": "thumbnails/salatiel.webp",
+    "src": null
+  },
+  {
+    "id": 28,
+    "title": "Family Man",
+    "artist": "Salatiel",
+    "image": "thumbnails/salatiel3.webp",
+    "src": null
+  },
+  {
+    "id": 29,
+    "title": "Africa Represented",
+    "artist": "Salatiel",
+    "image": "thumbnails/salatiel2.webp",
+    "src": null
+  },
+  {
+    "id": 30,
+    "title": "PROBLEMS",
+    "artist": "Stanley Enow",
+    "image": "thumbnails/stanley.webp",
+    "src": null
+  },
+  {
+    "id": 31,
+    "title": "Doï La Mulema",
+    "artist": "Grace Decca",
+    "image": "thumbnails/gracedeca.webp",
+    "src": null
+  },
+  {
+    "id": 32,
+    "title": "Appelle-moi Princesse",
+    "artist": "Grace Decca",
+    "image": "thumbnails/gracedeca2.webp",
+    "src": null
+  },
+  {
+    "id": 33,
+    "title": "Metamorphose",
+    "artist": "Prince Eyango",
+    "image": "thumbnails/eyango2.webp",
+    "src": null
+  },
+  {
+    "id": 34,
+    "title": "Scenes From My Life",
+    "artist": "Richard Bona",
+    "image": "thumbnails/bona.webp",
+    "src": null
+  },
+  {
+    "id": 35,
+    "title": "Tiki",
+    "artist": "Richard Bona",
+    "image": "thumbnails/bona2.webp",
+    "src": null
+  },
+  {
+    "id": 36,
+    "title": "Reverence",
+    "artist": "Richard Bona",
+    "image": "thumbnails/bona3.webp",
+    "src": null
+  },
+  {
+    "id": 37,
+    "title": "Munia (The Tale)",
+    "artist": "Richard Bona",
+    "image": "thumbnails/bona4.webp",
+    "src": "music/kalabancoro.mp3"
+  },
+  {
+    "id": 38,
+    "title": "Arabica",
+    "artist": "Tala André Marie",
+    "image": "thumbnails/tala.webp",
+    "src": null
+  },
+  {
+    "id": 39,
+    "title": "Bend Skin",
+    "artist": "Tala André Marie",
+    "image": "thumbnails/tala2.webp",
+    "src": null
+  },
+  {
+    "id": 40,
+    "title": "Les meilleurs titres",
+    "artist": "Marthe Zambo",
+    "image": "thumbnails/mzambo.webp",
+    "src": null
+  },
+  {
+    "id": 41,
+    "title": "Bikola",
+    "artist": "Marthe Zambo",
+    "image": "thumbnails/mzambo2.webp",
+    "src": "music/clavie.mp3"
+  },
+  {
+    "id": 42,
+    "title": "Africadelic",
+    "artist": "Manu Dibango",
+    "image": "thumbnails/manu.webp",
+    "src": null
+  },
+  {
+    "id": 43,
+    "title": "African Voodoo",
+    "artist": "Manu Dibango",
+    "image": "thumbnails/manu2.webp",
+    "src": null
+  },
+  {
+    "id": 44,
+    "title": "People",
+    "artist": "Libianca",
+    "image": "thumbnails/libianca.webp",
+    "src": null
+  },
+  {
+    "id": 45,
+    "title": "Walk Away",
+    "artist": "Libianca",
+    "image": "thumbnails/libianca2.webp",
+    "src": "music/kalabancoro.mp3"
+  },
+  {
+    "id": 46,
+    "title": "The Best Of, Vol. 1",
+    "artist": "Eboa Lotin",
+    "image": "thumbnails/eboalotin.webp",
+    "src": "music/soa.mp3"
+  },
+  {
+    "id": 47,
+    "title": "Soukous Fusion",
+    "artist": "Kotto Bass",
+    "image": "thumbnails/kotto.webp",
+    "src": "music/kalabancoro.mp3"
+  },
+  {
+    "id": 48,
+    "title": "La Sauce",
+    "artist": "RENISS",
+    "image": "thumbnails/reniss2.webp",
+    "src": "music/sawa.mp3"
+  },
+  {
+    "id": 49,
+    "title": "Best of 1 / Te revoir",
+    "artist": "Elvis Kemayo",
+    "image": "thumbnails/elvisk.webp",
+    "src": "music/ndolo.mp3"
+  },
+  {
+    "id": 50,
+    "title": "Vision",
+    "artist": "Elvis Kemayo",
+    "image": "thumbnails/elvisk2.webp",
+    "src": "music/trouverlavie.mp3"
+  },
+  {
+    "id": 51,
+    "title": "Privatisation",
+    "artist": "Longue Longue",
+    "image": "thumbnails/longue.webp",
+    "src": null
+  }
+]

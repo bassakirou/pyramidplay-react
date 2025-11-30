@@ -1,0 +1,17 @@
+[
+  { "id": 1, "name": "Makossa" },
+  { "id": 2, "name": "Bikutsi" },
+  { "id": 3, "name": "Bendskin" },
+  { "id": 4, "name": "Mbolé" },
+  { "id": 5, "name": "Assiko" },
+  { "id": 6, "name": "Mangambeu" },
+  { "id": 7, "name": "Njang" },
+  { "id": 8, "name": "Ambasse Bay" },
+  { "id": 9, "name": "Afropop Camerounais" },
+  { "id": 10, "name": "Rap Camerounais" },
+  { "id": 11, "name": "Afro-soul Camerounais" },
+  { "id": 12, "name": "Jazz Camerounais" },
+  { "id": 13, "name": "Afro-jazz Camerounais" },
+  { "id": 14, "name": "Soukous Camerounais" },
+  { "id": 15, "name": "Folklore Camerounais" }
+]

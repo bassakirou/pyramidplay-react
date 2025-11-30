@@ -1,0 +1,46 @@
+[
+  {
+    "id": 1,
+    "title": "Big Buck Bunny",
+    "thumbnail": "thumbnails/bona.webp",
+    "src": "https://www.w3schools.com/html/mov_bbb.mp4",
+    "channel": "PyramidPlay",
+    "views": 125000,
+    "duration": 596,
+    "uploadDate": "2024-09-01",
+    "genres": [{ "id": 1, "name": "Afro" }],
+    "description": "Une vidéo de démonstration pour le streaming.",
+    "comments": [
+      { "id": 1, "author": "Alice", "text": "Super vidéo !", "date": "2024-09-02" },
+      { "id": 2, "author": "Bob", "text": "Qualité top.", "date": "2024-09-03" }
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Coverr Mt Baker",
+    "thumbnail": "thumbnails/locko.webp",
+    "src": "https://storage.googleapis.com/coverr-main/mp4/Mt_Baker.mp4",
+    "channel": "PyramidPlay",
+    "views": 98000,
+    "duration": 120,
+    "uploadDate": "2024-10-10",
+    "genres": [{ "id": 2, "name": "AfroPop" }],
+    "description": "Exemple de vidéo avec un paysage.",
+    "comments": [
+      { "id": 1, "author": "Chris", "text": "Relaxant.", "date": "2024-10-11" }
+    ]
+  },
+  {
+    "id": 3,
+    "title": "City Timelapse",
+    "thumbnail": "thumbnails/magasco.webp",
+    "src": "https://storage.googleapis.com/coverr-main/mp4/City_Traffic.mp4",
+    "channel": "PyramidPlay",
+    "views": 45000,
+    "duration": 90,
+    "uploadDate": "2024-07-22",
+    "genres": [{ "id": 3, "name": "Urban" }],
+    "description": "Timelapse urbain pour test.",
+    "comments": []
+  }
+]

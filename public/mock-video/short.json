@@ -1,0 +1,23 @@
+[
+  {
+    "id": 101,
+    "title": "Short: Street Dance",
+    "src": "https://storage.googleapis.com/coverr-main/mp4/Street_Dancer.mp4",
+    "thumbnail": "thumbnails/jovi.webp",
+    "duration": 18
+  },
+  {
+    "id": 102,
+    "title": "Short: Beach Sunset",
+    "src": "https://storage.googleapis.com/coverr-main/mp4/Sunset_Beach.mp4",
+    "thumbnail": "thumbnails/libianca.webp",
+    "duration": 20
+  },
+  {
+    "id": 103,
+    "title": "Short: City Night",
+    "src": "https://storage.googleapis.com/coverr-main/mp4/City_Night.mp4",
+    "thumbnail": "thumbnails/stanley.webp",
+    "duration": 15
+  }
+]
