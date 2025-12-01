@@ -134,10 +134,12 @@ export function Carousel({
           data-oid=":ju7xab"
         >
           {Array.from({ length: pages }).map((_, i) => (
-            <button
+            <Button
               key={i}
+              variant="ghost"
+              size="icon"
               onClick={() => scrollToPage(i)}
-              className="h-2 w-2 rounded-full"
+              className="h-2 w-2 rounded-full p-0"
               style={{ backgroundColor: i === page ? "#fdac0d" : "#27425e" }}
               aria-label={`Aller à la page ${i + 1}`}
               data-oid="oq.ya2m"

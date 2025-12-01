@@ -58,8 +58,9 @@ export default function PlaylistModal({
             </div>
           )}
           {playlists.map((p) => (
-            <button
+            <Button
               key={p.id}
+              variant="ghost"
               disabled={!canAdd}
               onClick={() => {
                 if (!user) {
@@ -80,7 +81,7 @@ export default function PlaylistModal({
                 });
                 onClose();
               }}
-              className="w-full text-left px-3 py-2 rounded-md"
+              className="w-full text-left px-3 py-2 rounded-md justify-start h-auto"
               style={{ backgroundColor: "#162a42", color: "#fff" }}
               data-oid="0qrmi1:"
             >
@@ -94,7 +95,7 @@ export default function PlaylistModal({
               <span className="ml-2 text-xs text-gray-400" data-oid="a_fl34y">
                 {p.tracks.length} song(s)
               </span>
-            </button>
+            </Button>
           ))}
         </div>
 

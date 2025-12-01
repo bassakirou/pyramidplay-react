@@ -66,8 +66,9 @@ export function TrackPlayer({ tracks }: TrackPlayerProps) {
               >
                 {idx + 1}
               </div>
-              <button
-                className="text-left"
+              <Button
+                variant="ghost"
+                className="text-left h-auto p-0 hover:bg-transparent"
                 onClick={() => playTrack(t, tracks)}
                 aria-label={`Lire ${t.title}`}
                 data-oid="3ksei-r"
@@ -78,7 +79,7 @@ export function TrackPlayer({ tracks }: TrackPlayerProps) {
                 <div className="text-xs text-gray-400" data-oid="12jdzhx">
                   {(t.artist ?? []).map((a) => a.name).join(", ")}
                 </div>
-              </button>
+              </Button>
             </div>
             <div className="text-sm text-gray-300" data-oid="2ghgzvw">
               {formatDuration(t.duration)}

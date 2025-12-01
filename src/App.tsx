@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { AudioPlayerProvider } from "./contexts/AudioPlayerContext";
 import { LibraryProvider } from "./contexts/LibraryContext";
 import { ToastProvider } from "./components/ui/toast";
@@ -22,128 +22,46 @@ import { Profile } from "./pages/Profile";
 
 function App() {
   return (
-    <AuthProvider data-oid="75a8qee">
+    <AuthProvider>
       <ToastProvider>
-      <LibraryProvider data-oid="r.zskcm">
-        <AudioPlayerProvider data-oid="xw5qp90">
-          <Router data-oid="o_9_yus">
-            <Routes data-oid="p_g78q5">
-              <Route
-                path="/"
-                element={<Layout data-oid="wnpginf" />}
-                data-oid="qvo1f_r"
-              >
-                <Route
-                  index
-                  element={<Home data-oid="rbx3nnl" />}
-                  data-oid="56_ad-0"
-                />
+        <LibraryProvider>
+          <AudioPlayerProvider>
+            <Routes>
+              {/* Route parent avec Layout (Sidebar, header, Outlet, etc.) */}
+              <Route path="/" element={<Layout />}>
+                <Route index element={<Home />} />
 
-                <Route
-                  path="search"
-                  element={<Search data-oid="ocaw_51" />}
-                  data-oid="aou9mk4"
-                />
+                <Route path="search" element={<Search />} />
+                <Route path="library" element={<Library />} />
+                <Route path="favorites" element={<Library />} />
 
-                <Route
-                  path="library"
-                  element={<Library data-oid="-31knt3" />}
-                  data-oid="azruiao"
-                />
+                <Route path="artists" element={<Artists />} />
+                <Route path="artists/:id" element={<ArtistView />} />
 
-                <Route
-                  path="favorites"
-                  element={<Library data-oid="ft1k8c9" />}
-                  data-oid="px8dc1j"
-                />
+                <Route path="albums" element={<Albums />} />
+                <Route path="albums/:id" element={<AlbumView />} />
 
-                <Route
-                  path="artists"
-                  element={<Artists data-oid="ydud7kh" />}
-                  data-oid="h:vss-u"
-                />
+                <Route path="settings" element={<Home />} />
 
-                <Route
-                  path="artists/:id"
-                  element={<ArtistView data-oid="8muqn4r" />}
-                  data-oid="k960cwo"
-                />
+                {/* Auth */}
+                <Route path="auth/login" element={<Login />} />
+                <Route path="auth/signup" element={<Signup />} />
 
-                <Route
-                  path="albums"
-                  element={<Albums data-oid="ubhkpz0" />}
-                  data-oid="bnb77b1"
-                />
+                {/* Profile */}
+                <Route path="profile" element={<Profile />} />
 
-                <Route
-                  path="albums/:id"
-                  element={<AlbumView data-oid="cy3yvcj" />}
-                  data-oid="r6wxbfi"
-                />
-
-                <Route
-                  path="settings"
-                  element={<Home data-oid="37-57i0" />}
-                  data-oid="i.i-8sm"
-                />
-
-                <Route
-                  path="auth/login"
-                  element={<Login data-oid="1iitp16" />}
-                  data-oid="01.qjk9"
-                />
-
-                <Route
-                  path="auth/signup"
-                  element={<Signup data-oid=":b36u:4" />}
-                  data-oid="i06rokg"
-                />
-
-                <Route
-                  path="profile"
-                  element={<Profile data-oid="e.ss1p5" />}
-                  data-oid="-.q7-pj"
-                />
-              </Route>
-              <Route
-                path="/videos"
-                element={<Layout data-oid="eqwvc3u" />}
-                data-oid="-varzmn"
-              >
-                <Route
-                  index
-                  element={<VideosHome data-oid="d2rcem2" />}
-                  data-oid="4jaqk2m"
-                />
-
-                <Route
-                  path="shorts"
-                  element={<Shorts data-oid="_6kl4q4" />}
-                  data-oid="1-7t:dc"
-                />
-
-                <Route
-                  path="search"
-                  element={<VideoSearch data-oid="xi14g8i" />}
-                  data-oid="-_fu_yk"
-                />
-
-                <Route
-                  path="playlists"
-                  element={<Playlists data-oid="n7vpvzr" />}
-                  data-oid="r2..j8n"
-                />
-
-                <Route
-                  path="view/:id"
-                  element={<VideoView data-oid="c:q6z3f" />}
-                  data-oid="bsysflv"
-                />
+                {/* Vidéos (nested sous /videos) */}
+                <Route path="videos">
+                  <Route index element={<VideosHome />} />
+                  <Route path="shorts" element={<Shorts />} />
+                  <Route path="search" element={<VideoSearch />} />
+                  <Route path="playlists" element={<Playlists />} />
+                  <Route path="view/:id" element={<VideoView />} />
+                </Route>
               </Route>
             </Routes>
-          </Router>
-        </AudioPlayerProvider>
-      </LibraryProvider>
+          </AudioPlayerProvider>
+        </LibraryProvider>
       </ToastProvider>
     </AuthProvider>
   );

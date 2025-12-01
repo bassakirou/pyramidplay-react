@@ -1,6 +1,7 @@
 import React from "react";
 import { Home, Search, List, PlaySquare } from "lucide-react";
-import { NavLink } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import { Button } from "./ui/button";
 
 interface SidebarVideoProps {
   isOpen: boolean;
@@ -37,6 +38,8 @@ const navItems: NavItem[] = [
 ];
 
 export function SidebarVideo({ isOpen, onClose }: SidebarVideoProps) {
+  const navigate = useNavigate();
+  const location = useLocation();
   return (
     <>
       {isOpen && (
@@ -88,34 +91,33 @@ export function SidebarVideo({ isOpen, onClose }: SidebarVideoProps) {
 
           <nav className="flex-1 p-4" data-oid="zy7hpk-">
             <ul className="space-y-2" data-oid="55v8k6s">
-              {navItems.map((item) => (
-                <li key={item.path} data-oid="zryriee">
-                  <NavLink
-                    to={item.path}
-                    onClick={onClose}
-                    className={({ isActive }) =>
-                      `w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-left transition-colors cursor-pointer ${
+              {navItems.map((item) => {
+                const isActive = location.pathname === item.path;
+                return (
+                  <li key={item.path} data-oid="zryriee">
+                    <Button
+                      variant="ghost"
+                      className={`w-full justify-start space-x-3 px-4 py-6 rounded-lg text-left transition-colors cursor-pointer ${
                         isActive
-                          ? "text-white"
-                          : "text-gray-300 hover:bg-gray-700"
-                      }`
-                    }
-                    style={({ isActive }) =>
-                      isActive
-                        ? { backgroundColor: "#fdac0d", color: "#091d35" }
-                        : {}
-                    }
-                    data-oid="31jl9ac"
-                  >
-                    <span className="text-gray-300" data-oid="u_j1f6k">
-                      {item.icon}
-                    </span>
-                    <span className="font-medium" data-oid="c890.8c">
-                      {item.label}
-                    </span>
-                  </NavLink>
-                </li>
-              ))}
+                          ? "text-white bg-[#fdac0d] hover:bg-[#fdac0d]/90 hover:text-white"
+                          : "text-gray-300 hover:bg-gray-700 hover:text-white"
+                      }`}
+                      onClick={() => {
+                        navigate(item.path);
+                        onClose();
+                      }}
+                      data-oid="31jl9ac"
+                    >
+                      <span className={isActive ? "text-[#091d35]" : "text-gray-300"} data-oid="u_j1f6k">
+                        {item.icon}
+                      </span>
+                      <span className={`font-medium text-base ${isActive ? "text-[#091d35]" : ""}`} data-oid="c890.8c">
+                        {item.label}
+                      </span>
+                    </Button>
+                  </li>
+                );
+              })}
             </ul>
           </nav>
 

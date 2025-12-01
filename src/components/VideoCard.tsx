@@ -1,6 +1,7 @@
 import { Heart, ListPlus, Play } from "lucide-react";
 import type { Video } from "../types";
 import { useNavigate } from "react-router-dom";
+import { Button } from "./ui/button";
 
 interface VideoCardProps {
   video: Video;
@@ -68,8 +69,9 @@ export default function VideoCard({ video, className = "" }: VideoCardProps) {
           data-oid="v9g28hr"
         />
 
-        <button
-          className="absolute inset-0 flex items-center justify-center"
+        <Button
+          variant="ghost"
+          className="absolute inset-0 flex items-center justify-center w-full h-full p-0 hover:bg-transparent"
           onClick={() => navigate(`/videos/view/${video.id}`)}
           data-oid="h985t4r"
         >
@@ -83,7 +85,7 @@ export default function VideoCard({ video, className = "" }: VideoCardProps) {
           >
             <Play className="ml-1" data-oid="ilj8gp_" />
           </span>
-        </button>
+        </Button>
         <div
           className="absolute bottom-2 left-2 px-2 py-1 rounded text-xs"
           style={{ backgroundColor: "rgba(0,0,0,0.6)", color: "#ffffff" }}
@@ -106,7 +108,9 @@ export default function VideoCard({ video, className = "" }: VideoCardProps) {
             </p>
           </div>
           <div className="flex items-center gap-2" data-oid="h3lhm1j">
-            <button
+            <Button
+              variant="ghost"
+              size="icon"
               className="p-2 rounded-md transition-colors"
               style={{
                 backgroundColor: inFavorites ? "#fdac0d" : "#162a42",
@@ -117,8 +121,10 @@ export default function VideoCard({ video, className = "" }: VideoCardProps) {
               data-oid="_7e-njp"
             >
               <Heart size={16} data-oid="s0sg4w7" />
-            </button>
-            <button
+            </Button>
+            <Button
+              variant="ghost"
+              size="icon"
               className="p-2 rounded-md transition-colors"
               style={{ backgroundColor: "#162a42", color: "#ffffff" }}
               onClick={addToPlaylist}
@@ -126,7 +132,7 @@ export default function VideoCard({ video, className = "" }: VideoCardProps) {
               data-oid=".84h.3x"
             >
               <ListPlus size={16} data-oid="7o4l35x" />
-            </button>
+            </Button>
           </div>
         </div>
       </div>

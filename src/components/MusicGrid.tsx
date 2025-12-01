@@ -1,6 +1,7 @@
 import type { Music } from "../types";
 import MusicCard from "./MusicCard";
 import { Loader2 } from "lucide-react";
+import { Button } from "./ui/button";
 
 interface MusicGridProps {
   music: Music[];
@@ -69,7 +70,7 @@ export default function MusicGrid({
           <p className="text-gray-300 mb-4" data-oid="_yzs3mh">
             {error}
           </p>
-          <button
+          <Button
             onClick={() => window.location.reload()}
             className="text-white px-4 py-2 rounded-lg transition-colors"
             style={{ backgroundColor: "#fdac0d" }}
@@ -82,7 +83,7 @@ export default function MusicGrid({
             data-oid="s3y.ro0"
           >
             Réessayer
-          </button>
+          </Button>
         </div>
       </div>
     );
@@ -118,9 +119,10 @@ export default function MusicGrid({
               : "La bibliothèque musicale est vide pour le moment."}
           </p>
           {searchQuery && (
-            <button
+            <Button
+              variant="ghost"
               onClick={() => window.history.back()}
-              className="mt-4 transition-colors"
+              className="mt-4 transition-colors hover:bg-transparent"
               style={{ color: "#fdac0d" }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.color = "#e69a0a";
@@ -131,7 +133,7 @@ export default function MusicGrid({
               data-oid="92jhfd-"
             >
               Retour à la bibliothèque
-            </button>
+            </Button>
           )}
         </div>
       </div>

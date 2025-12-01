@@ -24,7 +24,6 @@ export function Layout() {
   };
   return (
     <div
-      key={location.pathname}
       className="min-h-screen flex"
       style={{ backgroundColor: "#162a42" }}
       data-oid="4zxmebg"
@@ -62,7 +61,7 @@ export function Layout() {
         >
           {" "}
           {/* pt-16 for fixed header, pb-24 for fixed audio player */}
-          <Outlet key={location.pathname} data-oid="u9_ip8i" />
+          <Outlet data-oid="u9_ip8i" />
         </main>
 
         {/* Audio Player - Fixed */}

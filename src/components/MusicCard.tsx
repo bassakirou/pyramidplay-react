@@ -5,6 +5,7 @@ import PlaylistModal from "./PlaylistModal";
 import { useEffect, useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { toastManager } from "./ui/toast";
+import { Button } from "./ui/button";
 
 interface MusicCardProps {
   music: Music;
@@ -183,7 +184,7 @@ export default function MusicCard({
           }
           data-oid="ujhhbok"
         >
-          <button
+          <Button
             onClick={(e) => {
               console.log(`[MusicCard] Button clicked for ${music.title}`);
               e.stopPropagation(); // Empêcher la propagation vers la carte
@@ -228,7 +229,7 @@ export default function MusicCard({
             ) : (
               <Play size={24} className="ml-1" data-oid="5j9..aa" />
             )}
-          </button>
+          </Button>
         </div>
 
         {/* Current Track Indicator */}
@@ -245,7 +246,9 @@ export default function MusicCard({
         {/* Add to Playlist Button */}
         {isPlayable && (
           <div className="absolute top-2 left-2" data-oid="addplbtn">
-            <button
+            <Button
+              variant="ghost"
+              size="icon"
               className="w-8 h-8 rounded-full flex items-center justify-center shadow"
               style={{ backgroundColor: "#fdac0d", color: "#091d35" }}
               onClick={(e) => {
@@ -264,7 +267,7 @@ export default function MusicCard({
               aria-label="Ajouter à une playlist"
             >
               <Plus size={16} />
-            </button>
+            </Button>
           </div>
         )}
 

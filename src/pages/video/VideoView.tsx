@@ -1,5 +1,6 @@
 import { useVideos } from "../../hooks/useVideos";
 import { useParams, useNavigate } from "react-router-dom";
+import { Button } from "../../components/ui/button";
 
 export default function VideoView() {
   const { id } = useParams();
@@ -82,9 +83,10 @@ export default function VideoView() {
             </h2>
             <div className="space-y-3">
               {others.map((v) => (
-                <button
+                <Button
                   key={v.id}
-                  className="w-full flex items-center gap-3 p-2 rounded-lg"
+                  variant="ghost"
+                  className="w-full flex items-center gap-3 p-2 rounded-lg h-auto justify-start hover:bg-[#162a42]"
                   style={{ backgroundColor: "#091d35" }}
                   onClick={() => navigate(`/videos/view/${v.id}`)}
                 >
@@ -106,7 +108,7 @@ export default function VideoView() {
                       {v.channel || ""}
                     </div>
                   </div>
-                </button>
+                </Button>
               ))}
             </div>
           </div>

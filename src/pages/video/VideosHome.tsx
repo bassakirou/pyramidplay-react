@@ -52,8 +52,9 @@ export default function VideosHome() {
         <div className="mb-10">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-2xl font-bold text-white">Shorts</h2>
-            <button
-              className="text-sm"
+            <Button
+              variant="ghost"
+              className="text-sm h-auto p-0 hover:bg-transparent"
               style={{ color: "#fdac0d" }}
               onClick={() => navigate("/videos/shorts")}
               onMouseEnter={(e) => {
@@ -64,7 +65,7 @@ export default function VideosHome() {
               }}
             >
               Voir tout
-            </button>
+            </Button>
           </div>
           <div
             className="flex gap-4 overflow-x-auto pb-2"

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Search, Menu, X } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
+import { Button } from "./ui/button";
 
 interface HeaderProps {
   onSearch: (query: string) => void;
@@ -33,9 +34,11 @@ export function Header({ onMenuToggle, isSidebarOpen }: HeaderProps) {
         >
           {/* Logo and Menu Toggle */}
           <div className="flex items-center space-x-4" data-oid="bsa8t9u">
-            <button
+            <Button
+              variant="ghost"
+              size="icon"
               onClick={onMenuToggle}
-              className="p-2 text-gray-300 hover:text-white transition-colors lg:hidden"
+              className="text-gray-300 hover:text-white transition-colors lg:hidden"
               data-oid="offx1ea"
             >
               {isSidebarOpen ? (
@@ -43,7 +46,7 @@ export function Header({ onMenuToggle, isSidebarOpen }: HeaderProps) {
               ) : (
                 <Menu className="w-6 h-6" data-oid="5kt7e1e" />
               )}
-            </button>
+            </Button>
 
             <div className="flex items-center space-x-3" data-oid="e7qvyz9">
               <img
@@ -54,7 +57,7 @@ export function Header({ onMenuToggle, isSidebarOpen }: HeaderProps) {
                 data-oid="l28snm9"
               />
 
-              <button
+              <Button
                 className="px-3 py-1 rounded-md text-sm font-medium transition-colors"
                 style={{ backgroundColor: "#fdac0d", color: "#091d35" }}
                 onClick={() => navigate(isVideoRoute ? "/" : "/videos")}
@@ -67,7 +70,7 @@ export function Header({ onMenuToggle, isSidebarOpen }: HeaderProps) {
                 data-oid="g9kbjg8"
               >
                 {isVideoRoute ? "Audios" : "Vidéos"}
-              </button>
+              </Button>
             </div>
           </div>
 
@@ -121,8 +124,10 @@ export function Header({ onMenuToggle, isSidebarOpen }: HeaderProps) {
                 />
 
                 {searchQuery && (
-                  <button
+                  <Button
                     type="button"
+                    variant="ghost"
+                    size="icon"
                     onClick={() => {
                       setSearchQuery("");
                       navigate(isVideoRoute ? "/videos/search" : "/search");
@@ -131,7 +136,7 @@ export function Header({ onMenuToggle, isSidebarOpen }: HeaderProps) {
                     data-oid="qx0wjbp"
                   >
                     <X className="w-5 h-5" data-oid="95ax3jd" />
-                  </button>
+                  </Button>
                 )}
               </form>
             </div>
@@ -146,7 +151,7 @@ export function Header({ onMenuToggle, isSidebarOpen }: HeaderProps) {
           >
             {!user ? (
               <>
-                <button
+                <Button
                   className="px-3 py-1 rounded-md text-sm font-medium transition-colors"
                   style={{ backgroundColor: "#fdac0d", color: "#091d35" }}
                   onClick={() => navigate("/auth/login")}
@@ -159,19 +164,21 @@ export function Header({ onMenuToggle, isSidebarOpen }: HeaderProps) {
                   data-oid="hq7vehj"
                 >
                   Se connecter
-                </button>
-                <button
+                </Button>
+                <Button
+                  variant="outline"
                   className="px-3 py-1 rounded-md text-sm font-medium transition-colors border"
                   style={{ color: "#fdac0d", borderColor: "#fdac0d" }}
                   onClick={() => navigate("/auth/signup")}
                   data-oid="vl1sc9m"
                 >
                   S’inscrire
-                </button>
+                </Button>
               </>
             ) : (
               <div className="relative" data-oid="o:t-hi.">
-                <button
+                <Button
+                  variant="ghost"
                   onClick={() => setOpen((v) => !v)}
                   className="flex items-center gap-2"
                   data-oid="oge0v5f"
@@ -188,15 +195,16 @@ export function Header({ onMenuToggle, isSidebarOpen }: HeaderProps) {
                   >
                     {user.name}
                   </span>
-                </button>
+                </Button>
                 {open && (
                   <div
                     className="absolute right-0 mt-2 w-40 rounded-md border bg-[#091d35] text-white shadow-lg"
                     style={{ borderColor: "#374151" }}
                     data-oid="33zscjp"
                   >
-                    <button
-                      className="w-full text-left px-3 py-2 hover:bg-[#162a42]"
+                    <Button
+                      variant="ghost"
+                      className="w-full text-left px-3 py-2 hover:bg-[#162a42] justify-start"
                       onClick={() => {
                         setOpen(false);
                         navigate("/profile");
@@ -204,9 +212,10 @@ export function Header({ onMenuToggle, isSidebarOpen }: HeaderProps) {
                       data-oid="5rq4l4t"
                     >
                       Profil
-                    </button>
-                    <button
-                      className="w-full text-left px-3 py-2 hover:bg-[#162a42]"
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      className="w-full text-left px-3 py-2 hover:bg-[#162a42] justify-start"
                       onClick={() => {
                         setOpen(false);
                         logout();
@@ -214,7 +223,7 @@ export function Header({ onMenuToggle, isSidebarOpen }: HeaderProps) {
                       data-oid="aug2smw"
                     >
                       Se déconnecter
-                    </button>
+                    </Button>
                   </div>
                 )}
               </div>

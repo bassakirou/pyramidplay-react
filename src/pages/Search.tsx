@@ -4,6 +4,7 @@ import MusicGrid from "../components/MusicGrid";
 import { useMusic } from "../hooks/useMusic";
 import { Search as SearchIcon } from "lucide-react";
 import type { Artist } from "../types";
+import { Button } from "../components/ui/button";
 
 export function Search() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -81,33 +82,35 @@ export function Search() {
               />
 
               {searchQuery && (
-                <button
+                <Button
                   type="button"
+                  variant="ghost"
+                  size="icon"
                   onClick={handleClearSearch}
                   className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
                   data-oid="5fzy09d"
                 >
                   ✕
-                </button>
+                </Button>
               )}
             </div>
             <div className="mt-4 flex flex-wrap gap-2" data-oid="x.40zh3">
-              <button
+              <Button
                 type="submit"
                 className="bg-primary-500 hover:bg-primary-600 text-white px-6 py-2 rounded-lg transition-colors"
                 data-oid="vbo5cnz"
               >
                 Rechercher
-              </button>
+              </Button>
               {searchQuery && (
-                <button
+                <Button
                   type="button"
                   onClick={handleClearSearch}
                   className="bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600 px-6 py-2 rounded-lg transition-colors"
                   data-oid="pt:d6ds"
                 >
                   Effacer
-                </button>
+                </Button>
               )}
             </div>
           </form>
@@ -131,8 +134,9 @@ export function Search() {
                 "Ndombolo",
                 "Zouk",
               ].map((genre) => (
-                <button
+                <Button
                   key={genre}
+                  variant="ghost"
                   onClick={() => {
                     setSearchQuery(genre);
                     setSearchParams({ q: genre });
@@ -141,7 +145,7 @@ export function Search() {
                   data-oid="u-kynej"
                 >
                   {genre}
-                </button>
+                </Button>
               ))}
             </div>
           </div>
@@ -161,8 +165,9 @@ export function Search() {
               data-oid="4va2ja6"
             >
               {music.slice(0, 8).map((track) => (
-                <button
+                <Button
                   key={track.id}
+                  variant="ghost"
                   onClick={() => {
                     const artistNames = Array.isArray(track.artist)
                       ? track.artist.map((a: Artist) => a.name).join(", ")
@@ -170,7 +175,7 @@ export function Search() {
                     setSearchQuery(artistNames);
                     setSearchParams({ q: artistNames });
                   }}
-                  className="text-left p-4 bg-white dark:bg-gray-800 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                  className="text-left p-4 bg-white dark:bg-gray-800 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors h-auto justify-start w-full"
                   data-oid="c8txq.s"
                 >
                   <div
@@ -199,7 +204,7 @@ export function Search() {
                       data-oid="bbe4f9:"
                     />
 
-                    <div className="min-w-0 flex-1" data-oid=".-v5701">
+                    <div className="min-w-0 flex-1 text-left" data-oid=".-v5701">
                       <p
                         className="font-medium text-gray-900 dark:text-white truncate"
                         data-oid="j4wyc_2"
@@ -216,7 +221,7 @@ export function Search() {
                       </p>
                     </div>
                   </div>
-                </button>
+                </Button>
               ))}
             </div>
           </div>

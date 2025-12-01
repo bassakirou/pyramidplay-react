@@ -1,6 +1,7 @@
 import type { Video } from "../types";
 import VideoCard from "./VideoCard";
 import { Loader2 } from "lucide-react";
+import { Button } from "./ui/button";
 
 interface VideoGridProps {
   videos: Video[];
@@ -67,7 +68,7 @@ export default function VideoGrid({
           <p className="text-gray-300 mb-4" data-oid="10q7u6e">
             {error}
           </p>
-          <button
+          <Button
             onClick={() => window.location.reload()}
             className="text-white px-4 py-2 rounded-lg transition-colors"
             style={{ backgroundColor: "#fdac0d" }}
@@ -80,7 +81,7 @@ export default function VideoGrid({
             data-oid="uavdcf7"
           >
             Réessayer
-          </button>
+          </Button>
         </div>
       </div>
     );

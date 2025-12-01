@@ -14,6 +14,7 @@ import {
 import { useAudioPlayer } from "../contexts/AudioPlayerContext";
 import { useMusic } from "../hooks/useMusic";
 import { useLocation } from "react-router-dom";
+import { Button } from "./ui/button";
 
 export function AudioPlayer() {
   const {
@@ -280,7 +281,9 @@ export function AudioPlayer() {
               className="flex items-center justify-center space-x-4 mb-2"
               data-oid="e6.pnxt"
             >
-              <button
+              <Button
+                variant="ghost"
+                size="icon"
                 onClick={handleShuffle}
                 className={`p-2 rounded-full transition-colors ${
                   playerState.shuffle
@@ -296,18 +299,22 @@ export function AudioPlayer() {
                 data-oid="fyfhun3"
               >
                 <Shuffle className="w-4 h-4" data-oid="7vr1iey" />
-              </button>
+              </Button>
 
-              <button
+              <Button
+                variant="ghost"
+                size="icon"
                 onClick={handlePrevious}
                 className="p-2 transition-colors text-gray-300 hover:text-white"
                 aria-label="Previous track"
                 data-oid="yyq5n9p"
               >
                 <SkipBack size={20} data-oid=":jnih:6" />
-              </button>
+              </Button>
 
-              <button
+              <Button
+                variant="ghost"
+                size="icon"
                 onClick={hasAudioSource ? handlePlayPause : undefined}
                 className={`p-3 text-white rounded-full transition-colors ${
                   hasAudioSource ? "" : "cursor-not-allowed opacity-50"
@@ -342,18 +349,22 @@ export function AudioPlayer() {
                 ) : (
                   <Play size={24} className="ml-1" data-oid="u62jwg4" />
                 )}
-              </button>
+              </Button>
 
-              <button
+              <Button
+                variant="ghost"
+                size="icon"
                 onClick={handleNext}
                 className="p-2 transition-colors text-gray-300 hover:text-white"
                 aria-label="Next track"
                 data-oid="58szlxh"
               >
                 <SkipForward size={20} data-oid="usiq8i5" />
-              </button>
+              </Button>
 
-              <button
+              <Button
+                variant="ghost"
+                size="icon"
                 onClick={handleRepeat}
                 className={`p-2 rounded-full transition-colors ${
                   repeat !== "none"
@@ -375,7 +386,7 @@ export function AudioPlayer() {
                 ) : (
                   <Repeat className="w-4 h-4" data-oid="fkqnu9j" />
                 )}
-              </button>
+              </Button>
             </div>
 
             {/* Audio availability message */}
@@ -447,7 +458,9 @@ export function AudioPlayer() {
             data-oid="_4:vg9a"
           >
             <div className="flex items-center space-x-2" data-oid="cxk.47r">
-              <button
+              <Button
+                variant="ghost"
+                size="icon"
                 onClick={handleMuteToggle}
                 className="p-1 text-gray-300 hover:text-white transition-colors"
                 title={isMuted ? "Activer le son" : "Couper le son"}
@@ -460,7 +473,7 @@ export function AudioPlayer() {
                 ) : (
                   <Volume2 className="w-5 h-5" data-oid="8zaq4_y" />
                 )}
-              </button>
+              </Button>
               <input
                 type="range"
                 min="0"

@@ -1,5 +1,6 @@
 import { useShorts } from "../../hooks/useShorts";
 import { useEffect, useRef, useState } from "react";
+import { Button } from "../../components/ui/button";
 
 export default function Shorts() {
   const { shorts } = useShorts();
@@ -46,21 +47,21 @@ export default function Shorts() {
           )}
         </div>
         <div className="flex items-center justify-between mt-4">
-          <button
+          <Button
             className="px-4 py-2 rounded-md"
             style={{ backgroundColor: "#fdac0d", color: "#091d35" }}
             onClick={prev}
           >
             Précédent
-          </button>
+          </Button>
           <div className="text-white text-sm">{current?.title || ""}</div>
-          <button
+          <Button
             className="px-4 py-2 rounded-md"
             style={{ backgroundColor: "#fdac0d", color: "#091d35" }}
             onClick={next}
           >
             Suivant
-          </button>
+          </Button>
         </div>
       </div>
     </div>
