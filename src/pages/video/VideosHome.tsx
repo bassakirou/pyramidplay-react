@@ -3,13 +3,12 @@ import { useVideos } from "../../hooks/useVideos";
 import { useShorts } from "../../hooks/useShorts";
 import VideoGrid from "../../components/VideoGrid";
 import { Button } from "../../components/ui/button";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function VideosHome() {
   const { genres } = useVideoGenres();
   const { videos, loading, error } = useVideos();
   const { shorts } = useShorts();
-  const navigate = useNavigate();
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: "#162a42" }}>
@@ -28,6 +27,7 @@ export default function VideosHome() {
           <div className="flex flex-wrap gap-3">
             {genres.map((g) => (
               <Button
+                asChild
                 key={g.id}
                 variant="secondary"
                 className="rounded-full px-4 py-2 text-sm"
@@ -37,13 +37,12 @@ export default function VideosHome() {
                   color: "#ffd384",
                   borderWidth: 1,
                 }}
-                onClick={() =>
-                  navigate(`/videos/search?q=${encodeURIComponent(g.name)}`)
-                }
               >
-                <span className="font-semibold" style={{ color: "#fdac0d" }}>
-                  {g.name}
-                </span>
+                <Link to={`/videos/search?q=${encodeURIComponent(g.name)}`}>
+                  <span className="font-semibold" style={{ color: "#fdac0d" }}>
+                    {g.name}
+                  </span>
+                </Link>
               </Button>
             ))}
           </div>
@@ -53,10 +52,10 @@ export default function VideosHome() {
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-2xl font-bold text-white">Shorts</h2>
             <Button
+              asChild
               variant="ghost"
               className="text-sm h-auto p-0 hover:bg-transparent"
               style={{ color: "#fdac0d" }}
-              onClick={() => navigate("/videos/shorts")}
               onMouseEnter={(e) => {
                 e.currentTarget.style.color = "#e69a0a";
               }}
@@ -64,7 +63,7 @@ export default function VideosHome() {
                 e.currentTarget.style.color = "#fdac0d";
               }}
             >
-              Voir tout
+              <Link to="/videos/shorts">Voir tout</Link>
             </Button>
           </div>
           <div
@@ -77,16 +76,17 @@ export default function VideosHome() {
                   className="rounded-lg overflow-hidden"
                   style={{ backgroundColor: "#091d35" }}
                 >
-                  <img
-                    src={
-                      s.thumbnail
-                        ? `/${s.thumbnail}`
-                        : "/assets/user-placeholder-avatar.svg"
-                    }
-                    alt={s.title}
-                    className="w-full h-40 object-cover"
-                    onClick={() => navigate("/videos/shorts")}
-                  />
+                  <Link to="/videos/shorts">
+                    <img
+                      src={
+                        s.thumbnail
+                          ? `/${s.thumbnail}`
+                          : "/assets/user-placeholder-avatar.svg"
+                      }
+                      alt={s.title}
+                      className="w-full h-40 object-cover"
+                    />
+                  </Link>
                 </div>
                 <div className="mt-2 text-white text-sm line-clamp-2">
                   {s.title}

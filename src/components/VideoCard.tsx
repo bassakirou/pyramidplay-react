@@ -1,6 +1,6 @@
 import { Heart, ListPlus, Play } from "lucide-react";
 import type { Video } from "../types";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Button } from "./ui/button";
 
 interface VideoCardProps {
@@ -9,7 +9,6 @@ interface VideoCardProps {
 }
 
 export default function VideoCard({ video, className = "" }: VideoCardProps) {
-  const navigate = useNavigate();
   const isPlayable = video.src !== null;
 
   const favoritesKey = "pp_video_favorites";
@@ -70,21 +69,23 @@ export default function VideoCard({ video, className = "" }: VideoCardProps) {
         />
 
         <Button
+          asChild
           variant="ghost"
           className="absolute inset-0 flex items-center justify-center w-full h-full p-0 hover:bg-transparent"
-          onClick={() => navigate(`/videos/view/${video.id}`)}
           data-oid="h985t4r"
         >
-          <span
-            className="w-14 h-14 rounded-full flex items-center justify-center transform scale-0 group-hover:scale-100 transition-transform"
-            style={{
-              backgroundColor: isPlayable ? "#fdac0d" : "#6b7280",
-              color: isPlayable ? "#091d35" : "#ffffff",
-            }}
-            data-oid="c5esem8"
-          >
-            <Play className="ml-1" data-oid="ilj8gp_" />
-          </span>
+          <Link to={`/videos/view/${video.id}`}>
+            <span
+              className="w-14 h-14 rounded-full flex items-center justify-center transform scale-0 group-hover:scale-100 transition-transform"
+              style={{
+                backgroundColor: isPlayable ? "#fdac0d" : "#6b7280",
+                color: isPlayable ? "#091d35" : "#ffffff",
+              }}
+              data-oid="c5esem8"
+            >
+              <Play className="ml-1" data-oid="ilj8gp_" />
+            </span>
+          </Link>
         </Button>
         <div
           className="absolute bottom-2 left-2 px-2 py-1 rounded text-xs"

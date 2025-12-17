@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 import { Search, Menu, X } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "./ui/button";
@@ -58,9 +58,9 @@ export function Header({ onMenuToggle, isSidebarOpen }: HeaderProps) {
               />
 
               <Button
+                asChild
                 className="px-3 py-1 rounded-md text-sm font-medium transition-colors"
                 style={{ backgroundColor: "#fdac0d", color: "#091d35" }}
-                onClick={() => navigate(isVideoRoute ? "/" : "/videos")}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.backgroundColor = "#e69a0a";
                 }}
@@ -69,7 +69,9 @@ export function Header({ onMenuToggle, isSidebarOpen }: HeaderProps) {
                 }}
                 data-oid="g9kbjg8"
               >
-                {isVideoRoute ? "Audios" : "Vidéos"}
+                <Link to={isVideoRoute ? "/" : "/videos"}>
+                  {isVideoRoute ? "Audios" : "Vidéos"}
+                </Link>
               </Button>
             </div>
           </div>
@@ -152,9 +154,9 @@ export function Header({ onMenuToggle, isSidebarOpen }: HeaderProps) {
             {!user ? (
               <>
                 <Button
+                  asChild
                   className="px-3 py-1 rounded-md text-sm font-medium transition-colors"
                   style={{ backgroundColor: "#fdac0d", color: "#091d35" }}
-                  onClick={() => navigate("/auth/login")}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.backgroundColor = "#e69a0a";
                   }}
@@ -163,16 +165,16 @@ export function Header({ onMenuToggle, isSidebarOpen }: HeaderProps) {
                   }}
                   data-oid="hq7vehj"
                 >
-                  Se connecter
+                  <Link to="/auth/login">Se connecter</Link>
                 </Button>
                 <Button
+                  asChild
                   variant="outline"
                   className="px-3 py-1 rounded-md text-sm font-medium transition-colors border"
                   style={{ color: "#fdac0d", borderColor: "#fdac0d" }}
-                  onClick={() => navigate("/auth/signup")}
                   data-oid="vl1sc9m"
                 >
-                  S’inscrire
+                  <Link to="/auth/signup">S’inscrire</Link>
                 </Button>
               </>
             ) : (
@@ -203,15 +205,13 @@ export function Header({ onMenuToggle, isSidebarOpen }: HeaderProps) {
                     data-oid="33zscjp"
                   >
                     <Button
+                      asChild
                       variant="ghost"
                       className="w-full text-left px-3 py-2 hover:bg-[#162a42] justify-start"
-                      onClick={() => {
-                        setOpen(false);
-                        navigate("/profile");
-                      }}
+                      onClick={() => setOpen(false)}
                       data-oid="5rq4l4t"
                     >
-                      Profil
+                      <Link to="/profile">Profil</Link>
                     </Button>
                     <Button
                       variant="ghost"

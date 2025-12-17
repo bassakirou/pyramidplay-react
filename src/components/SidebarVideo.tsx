@@ -1,6 +1,6 @@
 import React from "react";
 import { Home, Search, List, PlaySquare } from "lucide-react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Button } from "./ui/button";
 
 interface SidebarVideoProps {
@@ -38,7 +38,6 @@ const navItems: NavItem[] = [
 ];
 
 export function SidebarVideo({ isOpen, onClose }: SidebarVideoProps) {
-  const navigate = useNavigate();
   const location = useLocation();
   return (
     <>
@@ -96,24 +95,22 @@ export function SidebarVideo({ isOpen, onClose }: SidebarVideoProps) {
                 return (
                   <li key={item.path} data-oid="zryriee">
                     <Button
+                      asChild
                       variant="ghost"
                       className={`w-full justify-start space-x-3 px-4 py-6 rounded-lg text-left transition-colors cursor-pointer ${
                         isActive
                           ? "text-white bg-[#fdac0d] hover:bg-[#fdac0d]/90 hover:text-white"
                           : "text-gray-300 hover:bg-gray-700 hover:text-white"
                       }`}
-                      onClick={() => {
-                        navigate(item.path);
-                        onClose();
-                      }}
-                      data-oid="31jl9ac"
                     >
-                      <span className={isActive ? "text-[#091d35]" : "text-gray-300"} data-oid="u_j1f6k">
-                        {item.icon}
-                      </span>
-                      <span className={`font-medium text-base ${isActive ? "text-[#091d35]" : ""}`} data-oid="c890.8c">
-                        {item.label}
-                      </span>
+                      <Link to={item.path} onClick={onClose}>
+                        <span className={isActive ? "text-[#091d35]" : "text-gray-300"}>
+                          {item.icon}
+                        </span>
+                        <span className={`font-medium text-base ${isActive ? "text-[#091d35]" : ""}`}>
+                          {item.label}
+                        </span>
+                      </Link>
                     </Button>
                   </li>
                 );

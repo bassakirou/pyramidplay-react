@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, BrowserRouter } from "react-router-dom";
 import { AudioPlayerProvider } from "./contexts/AudioPlayerContext";
 import { LibraryProvider } from "./contexts/LibraryContext";
 import { ToastProvider } from "./components/ui/toast";
@@ -22,7 +22,8 @@ import { Profile } from "./pages/Profile";
 
 function App() {
   return (
-    <AuthProvider>
+    <BrowserRouter>
+      <AuthProvider>
       <ToastProvider>
         <LibraryProvider>
           <AudioPlayerProvider>
@@ -63,7 +64,8 @@ function App() {
           </AudioPlayerProvider>
         </LibraryProvider>
       </ToastProvider>
-    </AuthProvider>
+      </AuthProvider>
+    </BrowserRouter>
   );
 }
 

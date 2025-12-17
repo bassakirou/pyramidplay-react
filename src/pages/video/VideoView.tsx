@@ -1,12 +1,11 @@
 import { useVideos } from "../../hooks/useVideos";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { Button } from "../../components/ui/button";
 
 export default function VideoView() {
   const { id } = useParams();
   const { videos } = useVideos();
   const video = videos.find((v) => v.id === Number(id));
-  const navigate = useNavigate();
 
   const others = videos.filter((v) => v.id !== Number(id)).slice(0, 10);
 
@@ -84,30 +83,32 @@ export default function VideoView() {
             <div className="space-y-3">
               {others.map((v) => (
                 <Button
+                  asChild
                   key={v.id}
                   variant="ghost"
                   className="w-full flex items-center gap-3 p-2 rounded-lg h-auto justify-start hover:bg-[#162a42]"
                   style={{ backgroundColor: "#091d35" }}
-                  onClick={() => navigate(`/videos/view/${v.id}`)}
                 >
-                  <img
-                    src={
-                      v.thumbnail
-                        ? `/${v.thumbnail}`
-                        : "/assets/user-placeholder-avatar.svg"
-                    }
-                    alt={v.title}
-                    className="w-24 h-16 object-cover rounded"
-                  />
+                  <Link to={`/videos/view/${v.id}`}>
+                    <img
+                      src={
+                        v.thumbnail
+                          ? `/${v.thumbnail}`
+                          : "/assets/user-placeholder-avatar.svg"
+                      }
+                      alt={v.title}
+                      className="w-24 h-16 object-cover rounded"
+                    />
 
-                  <div className="flex-1 text-left">
-                    <div className="text-white text-sm line-clamp-2">
-                      {v.title}
+                    <div className="flex-1 text-left">
+                      <div className="text-white text-sm line-clamp-2">
+                        {v.title}
+                      </div>
+                      <div className="text-gray-400 text-xs">
+                        {v.channel || ""}
+                      </div>
                     </div>
-                    <div className="text-gray-400 text-xs">
-                      {v.channel || ""}
-                    </div>
-                  </div>
+                  </Link>
                 </Button>
               ))}
             </div>

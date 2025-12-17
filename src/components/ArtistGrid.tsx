@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import type { Artist } from "../types";
 import { ArtistCard } from "./ArtistCard";
 import { Button } from "./ui/button";
@@ -15,7 +15,6 @@ export function ArtistGrid({
   title = "Artistes populaires",
   onToggleFavorite,
 }: ArtistGridProps) {
-  const navigate = useNavigate();
 
   return (
     <div className="mb-10" data-oid="3pxsn2b">
@@ -27,13 +26,13 @@ export function ArtistGrid({
           {title}
         </h2>
         <Button
+          asChild
           variant="link"
           className="text-sm"
           style={{ color: "#fdac0d" }}
-          onClick={() => navigate("/artists")}
           data-oid="2e:xu:0"
         >
-          Tout afficher
+          <Link to="/artists">Tout afficher</Link>
         </Button>
       </div>
 

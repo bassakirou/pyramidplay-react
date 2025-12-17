@@ -4,7 +4,7 @@ import { useArtists } from "../hooks/useArtists";
 import { ArtistGrid } from "../components/ArtistGrid";
 import { Button } from "../components/ui/button";
 import { useEffect, useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import type { Genres } from "../types";
 import type { Artist } from "../types";
 import { useLibrary } from "../contexts/LibraryContext";
@@ -13,7 +13,6 @@ import { toastManager } from "../components/ui/toast";
 export function Home() {
   const { music, loading, error } = useMusic();
   const { artists, loading: loadingArtists } = useArtists();
-  const navigate = useNavigate();
   const [genres, setGenres] = useState<Genres[]>([]);
   const { toggleFavorite } = useLibrary();
 
@@ -86,6 +85,7 @@ export function Home() {
               const border = `hsl(${hue} 85% 50%)`;
               return (
                 <Button
+                  asChild
                   key={genre.id}
                   variant="secondary"
                   className="rounded-full px-4 py-2 text-sm"
@@ -95,25 +95,24 @@ export function Home() {
                     color: "#ffd384",
                     borderWidth: 1,
                   }}
-                  onClick={() =>
-                    navigate(`/search?q=${encodeURIComponent(genre.name)}`)
-                  }
                   data-oid="qmb_06d"
                 >
-                  <span
-                    className="font-semibold"
-                    style={{ color: "#fdac0d" }}
-                    data-oid="ayjh6d-"
-                  >
-                    {genre.name}
-                  </span>
-                  <span
-                    className="ml-2 text-xs px-2 py-0.5 rounded-full"
-                    style={{ backgroundColor: "#fdac0d", color: "#091d35" }}
-                    data-oid="ah9n8xh"
-                  >
-                    {count}
-                  </span>
+                  <Link to={`/search?q=${encodeURIComponent(genre.name)}`}>
+                    <span
+                      className="font-semibold"
+                      style={{ color: "#fdac0d" }}
+                      data-oid="ayjh6d-"
+                    >
+                      {genre.name}
+                    </span>
+                    <span
+                      className="ml-2 text-xs px-2 py-0.5 rounded-full"
+                      style={{ backgroundColor: "#fdac0d", color: "#091d35" }}
+                      data-oid="ah9n8xh"
+                    >
+                      {count}
+                    </span>
+                  </Link>
                 </Button>
               );
             })}
