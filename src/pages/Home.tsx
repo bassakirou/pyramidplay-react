@@ -1,169 +1,135 @@
-import MusicGrid from "../components/MusicGrid";
-import { useMusic } from "../hooks/useMusic";
-import { useArtists } from "../hooks/useArtists";
-import { ArtistGrid } from "../components/ArtistGrid";
-import { Button } from "../components/ui/button";
-import { useEffect, useMemo, useState } from "react";
-import { Link } from "react-router-dom";
-import type { Genres } from "../types";
-import type { Artist } from "../types";
-import { useLibrary } from "../contexts/LibraryContext";
-import { toastManager } from "../components/ui/toast";
+import { useState, useRef } from 'react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { categories, artists, albums } from '@/data/mockData';
+import { CategoryBadge } from '@/components/ui/custom/CategoryBadge';
+import { ArtistCard } from '@/components/ui/custom/ArtistCard';
+import { AlbumCard } from '@/components/ui/custom/AlbumCard';
+import { useNavigation } from '@/contexts/NavigationContext';
 
-export function Home() {
-  const { music, loading, error } = useMusic();
-  const { artists, loading: loadingArtists } = useArtists();
-  const [genres, setGenres] = useState<Genres[]>([]);
-  const { toggleFavorite } = useLibrary();
+interface ScrollableSectionProps {
+  title: string;
+  children: React.ReactNode;
+  showAll?: boolean;
+  onShowAll?: () => void;
+}
 
-  // Load genres from mock
-  useEffect(() => {
-    const loadGenres = async () => {
-      try {
-        const res = await fetch("/mock/genres.json");
-        if (res.ok) {
-          const data: Genres[] = await res.json();
-          setGenres(data);
-        }
-      } catch (e) {
-        console.error("Erreur de chargement des genres:", e);
-      }
-    };
-    loadGenres();
-  }, []);
+function ScrollableSection({ title, children, showAll = true, onShowAll }: ScrollableSectionProps) {
+  const scrollRef = useRef<HTMLDivElement>(null);
 
-  // Compute counts per genre based on music data
-  const genreCounts = useMemo(() => {
-    const counts: Record<number, number> = {};
-    music.forEach((track) => {
-      track.genres?.forEach((g) => {
-        counts[g.id] = (counts[g.id] || 0) + 1;
+  const scroll = (direction: 'left' | 'right') => {
+    if (scrollRef.current) {
+      const scrollAmount = 300;
+      scrollRef.current.scrollBy({
+        left: direction === 'left' ? -scrollAmount : scrollAmount,
+        behavior: 'smooth',
       });
-    });
-    return counts;
-  }, [music]);
+    }
+  };
 
   return (
-    <div
-      className="min-h-screen"
-      style={{ backgroundColor: "#162a42" }}
-      data-oid="c47g0du"
-    >
-      <div
-        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8"
-        data-oid="6nqukcw"
-      >
-        {/* Hero Section */}
-        <div className="mb-8" data-oid="e14etc9">
-          <h1
-            className="text-3xl md:text-4xl font-bold text-white mb-4"
-            data-oid="y9nopdu"
+    <section className="mb-8">
+      <div className="flex items-center justify-between mb-4">
+        <h2 className="text-xl font-bold text-white">{title}</h2>
+        {showAll && (
+          <button 
+            onClick={onShowAll}
+            className="text-[#F59E0B] text-sm hover:underline"
           >
-            Découvrez la Musique Africaine
-          </h1>
-          <p className="text-lg text-gray-300 max-w-2xl" data-oid="g_.:_ov">
-            PyramidPlay vous propose une sélection exclusive d'artistes
-            africains, avec un focus particulier sur la scène musicale
-            camerounaise.
-          </p>
-        </div>
-
-        {/* Catégories populaires */}
-        <div className="mb-8" data-oid="bgle0ev">
-          <h2
-            className="text-2xl md:text-3xl font-bold text-white mb-4"
-            data-oid="9:h7iq9"
-          >
-            Catégories populaires
-          </h2>
-          <div className="flex flex-wrap gap-3" data-oid="ydkchf0">
-            {genres.map((genre) => {
-              const count = genreCounts[genre.id] || 0;
-              // Simple color mapping per genre for visual distinction
-              const hue = (genre.id * 37) % 360;
-              const bg = `hsl(${hue} 70% 35% / 0.25)`;
-              const border = `hsl(${hue} 85% 50%)`;
-              return (
-                <Button
-                  asChild
-                  key={genre.id}
-                  variant="secondary"
-                  className="rounded-full px-4 py-2 text-sm"
-                  style={{
-                    backgroundColor: bg,
-                    borderColor: border,
-                    color: "#ffd384",
-                    borderWidth: 1,
-                  }}
-                  data-oid="qmb_06d"
-                >
-                  <Link to={`/search?q=${encodeURIComponent(genre.name)}`}>
-                    <span
-                      className="font-semibold"
-                      style={{ color: "#fdac0d" }}
-                      data-oid="ayjh6d-"
-                    >
-                      {genre.name}
-                    </span>
-                    <span
-                      className="ml-2 text-xs px-2 py-0.5 rounded-full"
-                      style={{ backgroundColor: "#fdac0d", color: "#091d35" }}
-                      data-oid="ah9n8xh"
-                    >
-                      {count}
-                    </span>
-                  </Link>
-                </Button>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* Artistes populaires */}
-        {!loadingArtists && artists.length > 0 && (
-          <ArtistGrid
-            artists={artists.slice(0, 12)}
-            onToggleFavorite={(artist: Artist) => {
-              const track = music.find(
-                (t) =>
-                  Array.isArray(t.artist) &&
-                  t.artist.some((a) => a.id === artist.id)
-              );
-              if (track) {
-                toggleFavorite(track);
-                toastManager.add({
-                  title: "Ajouté aux favoris",
-                  description: track.title,
-                  type: "success",
-                });
-              }
-            }}
-            data-oid=".3c3e_f"
-          />
+            Tout afficher
+          </button>
         )}
-
-        {/* Music Section */}
-        <div data-oid="u81.ox3">
-          <div
-            className="flex items-center justify-between mb-6"
-            data-oid="k4a2vt8"
-          >
-            <h2 className="text-2xl font-bold text-white" data-oid="l-e.uzt">
-              Toute la Musique
-            </h2>
-            <div className="text-sm text-gray-300" data-oid="d2tvsx-">
-              {music.length} {music.length === 1 ? "artiste" : "artistes"}
-            </div>
-          </div>
-
-          <MusicGrid
-            music={music}
-            loading={loading}
-            error={error}
-            data-oid="47takc_"
-          />
-        </div>
       </div>
+      
+      <div className="relative group">
+        {/* Left Arrow */}
+        <button
+          onClick={() => scroll('left')}
+          className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-[#F59E0B] flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-[#D97706]"
+        >
+          <ChevronLeft className="w-6 h-6 text-[#0F172A]" />
+        </button>
+
+        {/* Scrollable Content */}
+        <div
+          ref={scrollRef}
+          className="flex gap-4 overflow-x-auto scrollbar-hide scroll-smooth pb-2"
+          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+        >
+          {children}
+        </div>
+
+        {/* Right Arrow */}
+        <button
+          onClick={() => scroll('right')}
+          className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-[#F59E0B] flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-[#D97706]"
+        >
+          <ChevronRight className="w-6 h-6 text-[#0F172A]" />
+        </button>
+      </div>
+    </section>
+  );
+}
+
+export function Home() {
+  const [selectedCategory] = useState<string | null>(null);
+  const { navigateToSearch } = useNavigation();
+
+  const handleCategoryClick = (categoryName: string) => {
+    navigateToSearch(categoryName);
+  };
+
+  return (
+    <div className="p-6 overflow-y-auto h-full">
+      {/* Categories Section */}
+      <section className="mb-8">
+        <h2 className="text-xl font-bold text-white mb-4">Catégories populaires</h2>
+        <div className="flex flex-wrap gap-3">
+          {categories.map((category) => (
+            <CategoryBadge
+              key={category.id}
+              category={category}
+              isActive={selectedCategory === category.id}
+              onClick={() => handleCategoryClick(category.name)}
+            />
+          ))}
+        </div>
+      </section>
+
+      {/* Popular Artists */}
+      <ScrollableSection title="Artistes populaires">
+        {artists.slice(0, 10).map((artist) => (
+          <div key={artist.id} className="flex-shrink-0 w-40">
+            <ArtistCard artist={artist} />
+          </div>
+        ))}
+      </ScrollableSection>
+
+      {/* Popular Albums */}
+      <ScrollableSection title="Albums populaires">
+        {albums.slice(0, 10).map((album) => (
+          <div key={album.id} className="flex-shrink-0 w-40">
+            <AlbumCard album={album} />
+          </div>
+        ))}
+      </ScrollableSection>
+
+      {/* New Releases */}
+      <ScrollableSection title="Nouveautés">
+        {[...albums].reverse().slice(0, 8).map((album) => (
+          <div key={album.id} className="flex-shrink-0 w-40">
+            <AlbumCard album={album} />
+          </div>
+        ))}
+      </ScrollableSection>
+
+      {/* Trending Artists */}
+      <ScrollableSection title="Tendances">
+        {artists.slice(0, 8).reverse().map((artist) => (
+          <div key={artist.id} className="flex-shrink-0 w-40">
+            <ArtistCard artist={artist} />
+          </div>
+        ))}
+      </ScrollableSection>
     </div>
   );
 }

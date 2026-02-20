@@ -1,127 +1,171 @@
-import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import { createContext, useContext, useState, useCallback } from 'react';
+import type { User } from '@/types';
+import { mockUser, allSongs } from '@/data/mockData';
 
-export type User = {
-  id: string;
-  email: string;
-  name: string;
-  avatarUrl?: string;
-};
-
-type Credentials = { email: string; password: string };
-type SignupPayload = { name: string; email: string; password: string };
-
-type AuthContextType = {
+interface AuthContextType {
   user: User | null;
-  loading: boolean;
-  error: string | null;
-  login: (creds: Credentials) => Promise<void>;
-  signup: (payload: SignupPayload) => Promise<void>;
+  isAuthenticated: boolean;
+  login: (email: string, password: string) => Promise<boolean>;
+  register: (email: string, password: string, name: string) => Promise<boolean>;
   logout: () => void;
-};
+  addToFavorites: (songId: string) => void;
+  removeFromFavorites: (songId: string) => void;
+  isFavorite: (songId: string) => boolean;
+  createPlaylist: (name: string) => void;
+  deletePlaylist: (playlistId: string) => void;
+  addSongToPlaylist: (playlistId: string, songId: string) => void;
+  removeSongFromPlaylist: (playlistId: string, songId: string) => void;
+}
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-const USERS_STORAGE_KEY = "pp_users";
-const SESSION_STORAGE_KEY = "pp_session_user";
-
-async function loadMockUsers(): Promise<User[]> {
-  try {
-    const res = await fetch("/mock/users.json");
-    if (!res.ok) return [];
-    const data = await res.json();
-    return Array.isArray(data) ? data : [];
-  } catch {
-    return [];
-  }
-}
-
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
-  const [users, setUsers] = useState<User[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    const init = async () => {
-      const storedUsersRaw = localStorage.getItem(USERS_STORAGE_KEY);
-      const storedUsers = storedUsersRaw
-        ? (JSON.parse(storedUsersRaw) as User[])
-        : null;
-      let baseUsers = storedUsers ?? (await loadMockUsers());
-      setUsers(baseUsers);
-
-      const sessionRaw = localStorage.getItem(SESSION_STORAGE_KEY);
-      const sessionUser = sessionRaw ? (JSON.parse(sessionRaw) as User) : null;
-      setUser(sessionUser);
-      setLoading(false);
-    };
-    init();
+  const login = useCallback(async (email: string, password: string): Promise<boolean> => {
+    // Simulation de connexion - accepte n'importe quelles credentials
+    if (email && password) {
+      const newUser: User = {
+        ...mockUser,
+        id: `user-${Date.now()}`,
+        email,
+        name: email.split('@')[0],
+        isSubscribed: true,
+        favorites: [],
+        playlists: [],
+      };
+      setUser(newUser);
+      return true;
+    }
+    return false;
   }, []);
 
-  const login = async ({ email, password }: Credentials) => {
-    setError(null);
-    await new Promise((r) => setTimeout(r, 300));
-    const found = users.find(
-      (u) => u.email.toLowerCase() === email.toLowerCase(),
-    );
-    if (!found) {
-      setError("Utilisateur introuvable");
-      return;
+  const register = useCallback(async (email: string, password: string, name: string): Promise<boolean> => {
+    // Simulation d'inscription - accepte n'importe quelles données
+    if (email && password && name) {
+      const newUser: User = {
+        ...mockUser,
+        id: `user-${Date.now()}`,
+        email,
+        name,
+        isSubscribed: true,
+        favorites: [],
+        playlists: [],
+      };
+      setUser(newUser);
+      return true;
     }
-    if (!password || password.length < 3) {
-      setError("Mot de passe invalide");
-      return;
-    }
-    setUser(found);
-    localStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(found));
-  };
+    return false;
+  }, []);
 
-  const signup = async ({ name, email, password }: SignupPayload) => {
-    setError(null);
-    await new Promise((r) => setTimeout(r, 400));
-    if (!name.trim() || !email.trim() || !password.trim()) {
-      setError("Veuillez remplir tous les champs");
-      return;
-    }
-    const exists = users.some(
-      (u) => u.email.toLowerCase() === email.toLowerCase(),
-    );
-    if (exists) {
-      setError("Un compte existe déjà avec cet e‑mail");
-      return;
-    }
-    const newUser: User = {
-      id: crypto.randomUUID(),
-      name: name.trim(),
-      email: email.trim(),
-      avatarUrl: undefined,
-    };
-    const next = [...users, newUser];
-    setUsers(next);
-    localStorage.setItem(USERS_STORAGE_KEY, JSON.stringify(next));
-    setUser(newUser);
-    localStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(newUser));
-  };
-
-  const logout = () => {
+  const logout = useCallback(() => {
     setUser(null);
-    localStorage.removeItem(SESSION_STORAGE_KEY);
-  };
+  }, []);
 
-  const value = useMemo(
-    () => ({ user, loading, error, login, signup, logout }),
-    [user, loading, error],
-  );
+  const addToFavorites = useCallback((songId: string) => {
+    if (user) {
+      setUser({
+        ...user,
+        favorites: [...user.favorites, songId],
+      });
+    }
+  }, [user]);
+
+  const removeFromFavorites = useCallback((songId: string) => {
+    if (user) {
+      setUser({
+        ...user,
+        favorites: user.favorites.filter(id => id !== songId),
+      });
+    }
+  }, [user]);
+
+  const isFavorite = useCallback((songId: string): boolean => {
+    return user?.favorites.includes(songId) ?? false;
+  }, [user]);
+
+  const createPlaylist = useCallback((name: string) => {
+    if (user) {
+      const newPlaylist = {
+        id: `playlist-${Date.now()}`,
+        name,
+        userId: user.id,
+        songs: [],
+        createdAt: new Date(),
+      };
+      setUser({
+        ...user,
+        playlists: [...user.playlists, newPlaylist],
+      });
+    }
+  }, [user]);
+
+  const deletePlaylist = useCallback((playlistId: string) => {
+    if (user) {
+      setUser({
+        ...user,
+        playlists: user.playlists.filter(p => p.id !== playlistId),
+      });
+    }
+  }, [user]);
+
+  const addSongToPlaylist = useCallback((playlistId: string, songId: string) => {
+    if (user) {
+      setUser({
+        ...user,
+        playlists: user.playlists.map(playlist => {
+          if (playlist.id === playlistId) {
+            const song = allSongs.find(s => s.id === songId);
+            if (song && !playlist.songs.find(s => s.id === songId)) {
+              return { ...playlist, songs: [...playlist.songs, song] };
+            }
+          }
+          return playlist;
+        }),
+      });
+    }
+  }, [user]);
+
+  const removeSongFromPlaylist = useCallback((playlistId: string, songId: string) => {
+    if (user) {
+      setUser({
+        ...user,
+        playlists: user.playlists.map(playlist => {
+          if (playlist.id === playlistId) {
+            return { ...playlist, songs: playlist.songs.filter(s => s.id !== songId) };
+          }
+          return playlist;
+        }),
+      });
+    }
+  }, [user]);
 
   return (
-    <AuthContext.Provider value={value} data-oid="-zae9a8">
+    <AuthContext.Provider
+      value={{
+        user,
+        isAuthenticated: !!user,
+        login,
+        register,
+        logout,
+        addToFavorites,
+        removeFromFavorites,
+        isFavorite,
+        createPlaylist,
+        deletePlaylist,
+        addSongToPlaylist,
+        removeSongFromPlaylist,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
 }
 
 export function useAuth() {
-  const ctx = useContext(AuthContext);
-  if (!ctx) throw new Error("useAuth must be used within AuthProvider");
-  return ctx;
+  const context = useContext(AuthContext);
+  if (context === undefined) {
+    throw new Error('useAuth must be used within an AuthProvider');
+  }
+  return context;
 }

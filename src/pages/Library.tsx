@@ -1,130 +1,124 @@
-import { useState, useMemo } from "react";
-import { List, Heart, Music } from "lucide-react";
-import { useLibrary } from "../contexts/LibraryContext";
-import MusicGrid from "../components/MusicGrid";
-import { Button } from "../components/ui/button";
+import { Library as LibraryIcon, Disc, Radio, ListMusic, Heart } from 'lucide-react';
+import { useAuth } from '@/contexts/AuthContext';
+import { useNavigation } from '@/contexts/NavigationContext';
+import { albums, artists } from '@/data/mockData';
+import { AlbumCard } from '@/components/ui/custom/AlbumCard';
+import { ArtistCard } from '@/components/ui/custom/ArtistCard';
 
-export default function Library() {
-  const { playlists, favorites, recents } = useLibrary();
-  const [tab, setTab] = useState<"playlists" | "favorites" | "recents">(
-    "playlists",
-  );
+export function Library() {
+  const { isAuthenticated, user } = useAuth();
+  const { navigateTo } = useNavigation();
 
-  const tabItems = [
-    {
-      key: "playlists" as const,
-      label: "Playlist",
-      icon: <List size={18} data-oid="ukt99_x" />,
-    },
-    {
-      key: "favorites" as const,
-      label: "Favoris",
-      icon: <Heart size={18} data-oid="kqz2oom" />,
-    },
-    {
-      key: "recents" as const,
-      label: "Écoutés récemment",
-      icon: <Music size={18} data-oid="16o9m-u" />,
-    },
-  ];
-
-  const playlistCards = useMemo(() => playlists, [playlists]);
+  if (!isAuthenticated) {
+    return (
+      <div className="p-6 flex flex-col items-center justify-center h-full">
+        <LibraryIcon className="w-16 h-16 text-gray-600 mb-4" />
+        <h2 className="text-xl font-bold text-white mb-2">Votre bibliothèque</h2>
+        <p className="text-gray-400 text-center mb-6">
+          Connectez-vous pour accéder à votre bibliothèque musicale
+        </p>
+        <button
+          onClick={() => navigateTo('login')}
+          className="px-6 py-3 bg-[#F59E0B] hover:bg-[#D97706] text-[#0F172A] font-semibold rounded-full transition-colors"
+        >
+          Se connecter
+        </button>
+      </div>
+    );
+  }
 
   return (
-    <div
-      className="min-h-screen"
-      style={{ backgroundColor: "#162a42" }}
-      data-oid="z_ga6-o"
-    >
-      <div
-        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8"
-        data-oid="_20kyne"
-      >
-        <h1
-          className="text-3xl md:text-4xl font-bold text-white mb-6"
-          data-oid="3_2o-1m"
-        >
-          Ma bibliothèque
-        </h1>
+    <div className="p-6 overflow-y-auto h-full">
+      <h1 className="text-2xl font-bold text-white mb-6">Votre bibliothèque</h1>
 
-        {/* Tabs */}
-        <div className="flex items-center gap-3 mb-8" data-oid="5-k3fsw">
-          {tabItems.map((t) => (
-            <Button
-              key={t.key}
-              variant="secondary"
-              onClick={() => setTab(t.key)}
-              style={{
-                backgroundColor: tab === t.key ? "#fdac0d" : "#203c5a",
-                color: tab === t.key ? "#0a1d35" : "#ffd384",
-              }}
-              data-oid="0u7zihq"
-            >
-              <span className="mr-2" data-oid="qcwtyyl">
-                {t.icon}
-              </span>
-              {t.label}
-            </Button>
+      {/* Quick Access */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+        <button
+          onClick={() => navigateTo('playlists')}
+          className="flex items-center gap-3 p-4 bg-[#1E293B] rounded-lg hover:bg-[#F59E0B]/20 transition-colors group"
+        >
+          <div className="w-12 h-12 rounded-lg bg-[#F59E0B]/20 flex items-center justify-center group-hover:bg-[#F59E0B]">
+            <ListMusic className="w-6 h-6 text-[#F59E0B] group-hover:text-[#0F172A]" />
+          </div>
+          <div className="text-left">
+            <p className="text-white font-medium">Playlists</p>
+            <p className="text-gray-400 text-sm">{user?.playlists.length || 0} playlist(s)</p>
+          </div>
+        </button>
+
+        <button
+          onClick={() => navigateTo('favorites')}
+          className="flex items-center gap-3 p-4 bg-[#1E293B] rounded-lg hover:bg-[#F59E0B]/20 transition-colors group"
+        >
+          <div className="w-12 h-12 rounded-lg bg-[#F59E0B]/20 flex items-center justify-center group-hover:bg-[#F59E0B]">
+            <Heart className="w-6 h-6 text-[#F59E0B] group-hover:text-[#0F172A]" />
+          </div>
+          <div className="text-left">
+            <p className="text-white font-medium">Favoris</p>
+            <p className="text-gray-400 text-sm">{user?.favorites.length || 0} chanson(s)</p>
+          </div>
+        </button>
+
+        <button
+          onClick={() => navigateTo('podcasts')}
+          className="flex items-center gap-3 p-4 bg-[#1E293B] rounded-lg hover:bg-[#F59E0B]/20 transition-colors group"
+        >
+          <div className="w-12 h-12 rounded-lg bg-[#F59E0B]/20 flex items-center justify-center group-hover:bg-[#F59E0B]">
+            <Radio className="w-6 h-6 text-[#F59E0B] group-hover:text-[#0F172A]" />
+          </div>
+          <div className="text-left">
+            <p className="text-white font-medium">Podcasts</p>
+            <p className="text-gray-400 text-sm">À venir</p>
+          </div>
+        </button>
+
+        <button
+          onClick={() => navigateTo('home')}
+          className="flex items-center gap-3 p-4 bg-[#1E293B] rounded-lg hover:bg-[#F59E0B]/20 transition-colors group"
+        >
+          <div className="w-12 h-12 rounded-lg bg-[#F59E0B]/20 flex items-center justify-center group-hover:bg-[#F59E0B]">
+            <Disc className="w-6 h-6 text-[#F59E0B] group-hover:text-[#0F172A]" />
+          </div>
+          <div className="text-left">
+            <p className="text-white font-medium">Albums</p>
+            <p className="text-gray-400 text-sm">{albums.length} albums</p>
+          </div>
+        </button>
+      </div>
+
+      {/* Your Albums */}
+      <section className="mb-8">
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-xl font-bold text-white">Albums</h2>
+          <button className="text-[#F59E0B] text-sm hover:underline">
+            Tout afficher
+          </button>
+        </div>
+        <div className="flex gap-4 overflow-x-auto pb-2">
+          {albums.slice(0, 8).map((album) => (
+            <div key={album.id} className="flex-shrink-0 w-40">
+              <AlbumCard album={album} />
+            </div>
           ))}
         </div>
+      </section>
 
-        {/* Content */}
-        {tab === "playlists" && (
-          <div
-            className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6"
-            data-oid="1:8t2c0"
-          >
-            {playlistCards.length === 0 && (
-              <div
-                className="text-sm"
-                style={{ color: "#ffd384" }}
-                data-oid=".acl8.z"
-              >
-                Aucune playlist créée
-              </div>
-            )}
-            {playlistCards.map((p) => (
-              <div
-                key={p.id}
-                className="rounded-xl p-4"
-                style={{
-                  backgroundColor: "#0f2036",
-                  border: "1px solid #203c5a",
-                }}
-                data-oid="3wauct7"
-              >
-                <div
-                  className="h-32 rounded-lg mb-3"
-                  style={{ backgroundColor: "#203c5a" }}
-                  data-oid="21oht7t"
-                />
-
-                <div
-                  className="text-white font-semibold truncate"
-                  data-oid="uk3-9:w"
-                >
-                  {p.name}
-                </div>
-                <div
-                  className="text-xs"
-                  style={{ color: "#fdac0d" }}
-                  data-oid="7007b-y"
-                >
-                  {p.tracks.length} song(s)
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
-
-        {tab === "favorites" && (
-          <MusicGrid music={favorites} className="mt-2" data-oid="14hhepo" />
-        )}
-
-        {tab === "recents" && (
-          <MusicGrid music={recents} className="mt-2" data-oid="37gm78j" />
-        )}
-      </div>
+      {/* Your Artists */}
+      <section>
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-xl font-bold text-white">Artistes suivis</h2>
+          <button className="text-[#F59E0B] text-sm hover:underline">
+            Tout afficher
+          </button>
+        </div>
+        <div className="flex gap-4 overflow-x-auto pb-2">
+          {artists.slice(0, 8).map((artist) => (
+            <div key={artist.id} className="flex-shrink-0 w-40">
+              <ArtistCard artist={artist} />
+            </div>
+          ))}
+        </div>
+      </section>
     </div>
   );
 }

@@ -1,19 +1,14 @@
+import path from "path";
+import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
-import { fileURLToPath, URL } from "node:url";
-import tailwindcss from "@tailwindcss/vite";
-import react from "@vitejs/plugin-react-swc";
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react(), tailwindcss()],
+  base: "./",
+  plugins: [react()],
   resolve: {
     alias: {
-      "@": fileURLToPath(new URL("./src", import.meta.url)),
+      "@": path.resolve(__dirname, "./src"),
     },
-  },
-  server: {
-    port: 5174,
-    strictPort: true,
-    open: true,
   },
 });
