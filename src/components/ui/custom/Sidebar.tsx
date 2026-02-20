@@ -1,15 +1,24 @@
-import { useState } from 'react';
-import { Home, ListMusic, Heart, Plus, Disc, Mic2, Radio, Film } from 'lucide-react';
-import { useAuth } from '@/contexts/AuthContext';
-import { useNavigation } from '@/contexts/NavigationContext';
+import { useState } from "react";
+import {
+  Home,
+  ListMusic,
+  Heart,
+  Plus,
+  Disc,
+  Mic2,
+  Radio,
+  Film,
+} from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
+import { useNavigation } from "@/contexts/NavigationContext";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
 
 interface SidebarItemProps {
   icon: React.ReactNode;
@@ -21,13 +30,21 @@ interface SidebarItemProps {
   requiresAuth?: boolean;
 }
 
-function SidebarItem({ icon, label, onClick, isActive, hasPlus, onPlusClick, requiresAuth }: SidebarItemProps) {
+function SidebarItem({
+  icon,
+  label,
+  onClick,
+  isActive,
+  hasPlus,
+  onPlusClick,
+  requiresAuth,
+}: SidebarItemProps) {
   const { isAuthenticated } = useAuth();
   const { navigateTo } = useNavigation();
 
   const handleClick = () => {
     if (requiresAuth && !isAuthenticated) {
-      navigateTo('login');
+      navigateTo("login");
       return;
     }
     onClick?.();
@@ -36,7 +53,7 @@ function SidebarItem({ icon, label, onClick, isActive, hasPlus, onPlusClick, req
   const handlePlusClick = (e: React.MouseEvent) => {
     e.stopPropagation();
     if (requiresAuth && !isAuthenticated) {
-      navigateTo('login');
+      navigateTo("login");
       return;
     }
     onPlusClick?.();
@@ -46,9 +63,9 @@ function SidebarItem({ icon, label, onClick, isActive, hasPlus, onPlusClick, req
     <button
       onClick={handleClick}
       className={`w-full flex items-center justify-between px-4 py-3 rounded-lg transition-colors ${
-        isActive 
-          ? 'bg-[#F59E0B]/20 text-[#F59E0B]' 
-          : 'text-gray-300 hover:bg-white/5 hover:text-white'
+        isActive
+          ? "bg-[#F59E0B]/20 text-[#F59E0B]"
+          : "text-gray-300 hover:bg-white/5 hover:text-white"
       }`}
     >
       <div className="flex items-center gap-3">
@@ -56,7 +73,7 @@ function SidebarItem({ icon, label, onClick, isActive, hasPlus, onPlusClick, req
         <span className="font-medium">{label}</span>
       </div>
       {hasPlus && (
-        <button 
+        <button
           onClick={handlePlusClick}
           className="p-1 hover:bg-white/10 rounded transition-colors"
         >
@@ -76,12 +93,12 @@ export function Sidebar({ isMobile = false, onNavigate }: SidebarProps) {
   const { createPlaylist } = useAuth();
   const { currentView, navigateTo } = useNavigation();
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
-  const [newPlaylistName, setNewPlaylistName] = useState('');
+  const [newPlaylistName, setNewPlaylistName] = useState("");
 
   const handleCreatePlaylist = () => {
     if (newPlaylistName.trim()) {
       createPlaylist(newPlaylistName.trim());
-      setNewPlaylistName('');
+      setNewPlaylistName("");
       setIsCreateDialogOpen(false);
     }
   };
@@ -94,8 +111,17 @@ export function Sidebar({ isMobile = false, onNavigate }: SidebarProps) {
   const sidebarContent = (
     <>
       {/* Decorative border at top */}
-      {!isMobile && <div className="h-1 bg-gradient-to-r from-[#F59E0B] via-[#FBBF24] to-[#F59E0B]"></div>}
-      
+      {!isMobile && (
+        <div
+          className="h-[13px] w-full"
+          style={{
+            backgroundImage: "url(/assets/motifs_pyramid.svg)",
+            backgroundRepeat: "repeat-x",
+            backgroundSize: "auto 100%",
+          }}
+        />
+      )}
+
       <div className="flex-1 overflow-y-auto py-4 px-3">
         {/* Main Navigation */}
         <nav className="space-y-1 mb-6">
@@ -103,14 +129,14 @@ export function Sidebar({ isMobile = false, onNavigate }: SidebarProps) {
           <SidebarItem
             icon={<Film className="w-5 h-5" />}
             label="VIDÉOS"
-            onClick={() => handleNavigate('video_home')}
-            isActive={currentView.startsWith('video_')}
+            onClick={() => handleNavigate("video_home")}
+            isActive={currentView.startsWith("video_")}
           />
           <SidebarItem
             icon={<Home className="w-5 h-5" />}
             label="ACCUEIL"
-            onClick={() => handleNavigate('home')}
-            isActive={currentView === 'home'}
+            onClick={() => handleNavigate("home")}
+            isActive={currentView === "home"}
           />
         </nav>
 
@@ -123,8 +149,8 @@ export function Sidebar({ isMobile = false, onNavigate }: SidebarProps) {
             <SidebarItem
               icon={<ListMusic className="w-5 h-5" />}
               label="Vos Playlists"
-              onClick={() => handleNavigate('playlists')}
-              isActive={currentView === 'playlists'}
+              onClick={() => handleNavigate("playlists")}
+              isActive={currentView === "playlists"}
               hasPlus
               onPlusClick={() => setIsCreateDialogOpen(true)}
               requiresAuth
@@ -132,12 +158,15 @@ export function Sidebar({ isMobile = false, onNavigate }: SidebarProps) {
             <SidebarItem
               icon={<Heart className="w-5 h-5" />}
               label="Vos Favoris"
-              onClick={() => handleNavigate('favorites')}
-              isActive={currentView === 'favorites'}
+              onClick={() => handleNavigate("favorites")}
+              isActive={currentView === "favorites"}
               hasPlus
               requiresAuth
             />
-            <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
+            <Dialog
+              open={isCreateDialogOpen}
+              onOpenChange={setIsCreateDialogOpen}
+            >
               <SidebarItem
                 icon={<Plus className="w-5 h-5" />}
                 label="Créer"
@@ -146,7 +175,9 @@ export function Sidebar({ isMobile = false, onNavigate }: SidebarProps) {
               />
               <DialogContent className="bg-[#1E293B] border-white/10">
                 <DialogHeader>
-                  <DialogTitle className="text-white">Créer une playlist</DialogTitle>
+                  <DialogTitle className="text-white">
+                    Créer une playlist
+                  </DialogTitle>
                   <DialogDescription className="text-gray-400">
                     Donnez un nom à votre nouvelle playlist
                   </DialogDescription>
@@ -189,20 +220,20 @@ export function Sidebar({ isMobile = false, onNavigate }: SidebarProps) {
             <SidebarItem
               icon={<Disc className="w-5 h-5" />}
               label="Albums"
-              onClick={() => handleNavigate('library')}
-              isActive={currentView === 'library'}
+              onClick={() => handleNavigate("library")}
+              isActive={currentView === "library"}
               requiresAuth
             />
             <SidebarItem
               icon={<Mic2 className="w-5 h-5" />}
               label="Artistes"
-              onClick={() => handleNavigate('home')}
+              onClick={() => handleNavigate("home")}
             />
             <SidebarItem
               icon={<Radio className="w-5 h-5" />}
               label="Podcasts"
-              onClick={() => handleNavigate('podcasts')}
-              isActive={currentView === 'podcasts'}
+              onClick={() => handleNavigate("podcasts")}
+              isActive={currentView === "podcasts"}
               requiresAuth
             />
           </nav>
@@ -210,7 +241,16 @@ export function Sidebar({ isMobile = false, onNavigate }: SidebarProps) {
       </div>
 
       {/* Decorative border at bottom */}
-      {!isMobile && <div className="h-2 bg-gradient-to-r from-[#F59E0B] via-[#FBBF24] to-[#F59E0B]"></div>}
+      {!isMobile && (
+        <div
+          className="h-[13px] w-full"
+          style={{
+            backgroundImage: "url(/assets/motifs_pyramid.svg)",
+            backgroundRepeat: "repeat-x",
+            backgroundSize: "auto 100%",
+          }}
+        />
+      )}
     </>
   );
 
